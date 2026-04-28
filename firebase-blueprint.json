@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "rating": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "createdAt"]
+    },
+    "Account": {
+      "title": "Game Account",
+      "description": "A game account listed for sale",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "game": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "sold", "pending"] },
+        "level": { "type": "number" },
+        "rank": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "game", "price", "sellerId", "status", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A transaction between buyer and seller",
+      "type": "object",
+      "properties": {
+        "buyerId": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "accountId": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["buyerId", "sellerId", "accountId", "amount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/accounts/{accountId}": {
+      "schema": "Account",
+      "description": "Game accounts for sale"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Transaction records"
+    }
+  }
+}
